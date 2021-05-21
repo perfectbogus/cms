@@ -1,11 +1,10 @@
 package dev.perfectbogus.cms.domain.resources;
 
 import dev.perfectbogus.cms.domain.models.Category;
+import dev.perfectbogus.cms.domain.requests.CategoryRequest;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
 import java.util.List;
@@ -22,5 +21,21 @@ public class CategoryResource {
     @GetMapping
     public ResponseEntity<List<Category>> findAll(){
         return ResponseEntity.ok(Arrays.asList(new Category(), new Category()));
+    }
+
+    @PostMapping
+    public ResponseEntity<Category> newCategory(CategoryRequest category){
+        return new ResponseEntity<>(new Category(), HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void removeCategory(@PathVariable("id") String id){
+
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Category> updateCategory(@PathVariable("id") String id, CategoryRequest category){
+        return new ResponseEntity<>(new Category(), HttpStatus.OK);
     }
 }
