@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
-public class UserService extends AbstractRepository {
+public class UserService extends AbstractRepository<User> {
 
     private final UserRepository userRepository;
 
