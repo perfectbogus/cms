@@ -2,6 +2,7 @@ package dev.perfectbogus.cms.domain.resources;
 
 import dev.perfectbogus.cms.domain.models.Category;
 import dev.perfectbogus.cms.domain.requests.CategoryRequest;
+import dev.perfectbogus.cms.domain.services.CategoryService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -17,6 +18,12 @@ import java.util.List;
 @RequestMapping("/api/category")
 @Api(tags = "category", description = "Category API")
 public class CategoryResource {
+
+    private final CategoryService categoryService;
+
+    public CategoryResource(CategoryService categoryService){
+        this.categoryService = categoryService;
+    }
 
     @GetMapping(value = "/{id}")
     @ApiOperation(value = "find category", notes = "Find the category by ID")
@@ -44,8 +51,8 @@ public class CategoryResource {
             @ApiResponse(code = 201, message = "Category Created successfully"),
             @ApiResponse(code = 400, message = "Invalid Request")
     })
-    public ResponseEntity<Category> newCategory(CategoryRequest category) {
-        return new ResponseEntity<>(new Category(), HttpStatus.CREATED);
+    public ResponseEntity<Category> newCategory(@RequestBody CategoryRequest request) {
+        return new ResponseEntity<>(this.categoryService.create(request), HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")

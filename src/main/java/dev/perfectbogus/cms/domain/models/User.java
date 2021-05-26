@@ -12,8 +12,9 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "system_user")
 public class User {
+
     @Id
-    @GeneratedValue(generator = "system-uiid")
+    @GeneratedValue(generator = "system-uuid")
     @GenericGenerator(name = "system-uuid", strategy = "uuid2")
     String id;
 
