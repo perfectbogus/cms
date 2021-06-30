@@ -6,6 +6,7 @@ import dev.perfectbogus.cms.domain.repositories.NewsRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class NewsService extends AbstractRepository<News> {
@@ -25,8 +26,8 @@ public class NewsService extends AbstractRepository<News> {
     }
 
     public void delete(String id){
-        final News news = this.newsRepository.findOne(id);
-        this.newsRepository.delete(news);
+        final Optional<News> news = this.newsRepository.findById(id);
+        this.newsRepository.delete(news.get());
     }
 
     public List<News> findAll(){
@@ -34,6 +35,6 @@ public class NewsService extends AbstractRepository<News> {
     }
 
     public News findOne(String id){
-        return this.newsRepository.findOne(id);
+        return this.newsRepository.findById(id).get();
     }
 }
